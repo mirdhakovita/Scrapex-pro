@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-rr+edq)_@hpff8f0tg)^7rahc@hwl&9hj0cd8t2c6l!$=+&zwo
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['https://onrender.com']
+CSRF_TRUSTED_ORIGINS = ['https://scrapex-pro.onrender.com']
 
 # Application definition
 
