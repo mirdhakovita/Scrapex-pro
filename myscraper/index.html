@@ -6,61 +6,75 @@
     <title>ScrapeX-Pro | Professional Web Scraper Tool</title>
     <link rel="stylesheet" href="https://jsdelivr.net">
     <style>
-        body { background-color: #f8f9fa; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f8f9fa; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
+        .wrapper { flex: 1; }
         .card { border: none; border-radius: 12px; }
         .btn-primary { background-color: #0d6efd; border: none; border-radius: 8px; }
         .btn-success { background-color: #198754; border: none; border-radius: 8px; }
+        footer { background-color: #212529; color: #ffffff; padding: 20px 0; margin-top: auto; }
     </style>
 </head>
 <body>
-    <div class="container py-5">
-        <div class="row justify-content-center">
-            <!-- Header Section -->
-            <div class="col-md-9 text-center mb-5">
-                <h1 class="display-4 fw-bold text-primary">📊 ScrapeX-Pro Engine</h1>
-                <p class="fs-5 text-muted">Extract data and links from any website in seconds</p>
-            </div>
-            
-            <!-- Input Form Card -->
-            <div class="col-md-9 card shadow-sm p-4 mb-4 bg-white">
-                <form method="POST">
-                    {% csrf_token %}
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold text-dark fs-6">Enter Website URL (Link):</label>
-                        <input type="url" name="url" class="form-control form-control-lg" placeholder="https://example.com" value="{{ url }}" required>
-                    </div>
-                    <div class="d-grid gap-2">
-                        <button type="submit" name="action" value="scrape" class="btn btn-primary btn-lg fw-bold">🚀 Scrape Data</button>
-                        <button type="submit" name="action" value="download" class="btn btn-success btn-lg fw-bold">📥 Download Excel (CSV)</button>
-                    </div>
-                </form>
-            </div>
-            
-            <!-- Results Table Card -->
-            {% if data %}
-            <div class="col-md-9 card shadow-sm p-4 bg-white">
-                <h3 class="h5 mb-3 text-success fw-bold">📋 Scraped Results:</h3>
-                <div class="table-responsive">
-                    <table class="table table-hover table-bordered align-middle">
-                        <thead class="table-dark">
-                            <tr>
-                                <th style="width: 40%;">Title / Text</th>
-                                <th style="width: 60%;">Target URL Path</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for item in data %}
-                            <tr>
-                                <td class="fw-medium text-secondary">{{ item.text }}</td>
-                                <td><a href="{{ item.url }}" target="_blank" class="text-decoration-none text-primary text-break">{{ item.url }}</a></td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+    <div class="wrapper py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <!-- Header Section -->
+                <div class="col-md-9 text-center mb-5">
+                    <h1 class="display-4 fw-bold text-primary">📊 ScrapeX-Pro Engine</h1>
+                    <p class="fs-5 text-muted">Extract data and links from any website in seconds</p>
                 </div>
+                
+                <!-- Input Form Card -->
+                <div class="col-md-9 card shadow-sm p-4 mb-4 bg-white">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold text-dark fs-6">Enter Website URL (Link):</label>
+                            <input type="url" name="url" class="form-control form-control-lg" placeholder="https://example.com" value="{{ url }}" required>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" name="action" value="scrape" class="btn btn-primary btn-lg fw-bold">🚀 Scrape Data</button>
+                            <button type="submit" name="action" value="download" class="btn btn-success btn-lg fw-bold">📥 Download Excel (CSV)</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Results Table Card -->
+                {% if data %}
+                <div class="col-md-9 card shadow-sm p-4 bg-white">
+                    <h3 class="h5 mb-3 text-success fw-bold">📋 Scraped Results:</h3>
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered align-middle">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th style="width: 40%;">Title / Text</th>
+                                    <th style="width: 60%;">Target URL Path</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in data %}
+                                <tr>
+                                    <td class="fw-medium text-secondary">{{ item.text }}</td>
+                                    <td><a href="{{ item.url }}" target="_blank" class="text-decoration-none text-primary text-break">{{ item.url }}</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                {% endif %}
             </div>
-            {% endif %}
         </div>
     </div>
+
+    <!-- 🌐 Professional Developer Footer Section -->
+    <footer>
+        <div class="container text-center">
+            <p class="mb-1 fw-bold">Developed by: <span class="text-info">Milan Singh</span></p>
+            <p class="mb-0 text-muted">Need custom scraping or data tools? Contact me: 
+                <a href="mailto:Milansingh974@gmail.com" class="text-warning text-decoration-none fw-semibold">Milansingh974@gmail.com</a>
+            </p>
+        </div>
+    </footer>
 </body>
 </html>
