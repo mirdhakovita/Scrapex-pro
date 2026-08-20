@@ -19,7 +19,10 @@
                         <label class="form-label fw-bold">वेबसाइट का लिंक (URL) यहाँ पेस्ट करें:</label>
                         <input type="url" name="url" class="form-control" placeholder="https://example.com" value="{{ url }}" required>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100 fw-bold">🚀 डेटा स्क्रैप करें</button>
+                    <button type="submit" name="action" value="scrape" class="btn btn-primary w-100 fw-bold mb-2">🚀 डेटा स्क्रैप करें</button>
+                    
+                    <!-- 🟢 नया एक्सेल डाउनलोड करने वाला बटन -->
+                    <button type="submit" name="action" value="download" class="btn btn-success w-100 fw-bold">📥 Excel (CSV) डाउनलोड करें</button>
                 </form>
             </div>
             {% if data %}
