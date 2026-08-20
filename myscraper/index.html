@@ -1,66 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ScrapeX-Pro | Professional Web Scraper Tool</title>
-    <link rel="stylesheet" href="https://jsdelivr.net">
-    <style>
-        body { background-color: #f8f9fa; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        .card { border: none; border-radius: 12px; }
-        .btn-primary { background-color: #0d6efd; border: none; border-radius: 8px; }
-        .btn-success { background-color: #198754; border: none; border-radius: 8px; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ScrapeX-Pro | Professional Data Extractor</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body>
-    <div class="container py-5">
-        <div class="row justify-content-center">
-            <!-- Header Section -->
-            <div class="col-md-9 text-center mb-5">
-                <h1 class="display-4 fw-bold text-primary">📊 ScrapeX-Pro Engine</h1>
-                <p class="fs-5 text-muted">Extract data and links from any website in seconds</p>
-            </div>
-            
-            <!-- Input Form Card -->
-            <div class="col-md-9 card shadow-sm p-4 mb-4 bg-white">
-                <form method="POST">
-                    {% csrf_token %}
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold text-dark fs-6">Enter Website URL (Link):</label>
-                        <input type="url" name="url" class="form-control form-control-lg" placeholder="https://example.com" value="{{ url }}" required>
-                    </div>
-                    <div class="d-grid gap-2">
-                        <button type="submit" name="action" value="scrape" class="btn btn-primary btn-lg fw-bold">🚀 Scrape Data</button>
-                        <button type="submit" name="action" value="download" class="btn btn-success btn-lg fw-bold">📥 Download Excel (CSV)</button>
-                    </div>
-                </form>
-            </div>
-            
-            <!-- Results Table Card -->
-            {% if data %}
-            <div class="col-md-9 card shadow-sm p-4 bg-white">
-                <h3 class="h5 mb-3 text-success fw-bold">📋 Scraped Results:</h3>
-                <div class="table-responsive">
-                    <table class="table table-hover table-bordered align-middle">
-                        <thead class="table-dark">
-                            <tr>
-                                <th style="width: 40%;">Title / Text</th>
-                                <th style="width: 60%;">Target URL Path</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for item in data %}
-                            <tr>
-                                <td class="fw-medium text-secondary">{{ item.text }}</td>
-                                <td><a href="{{ item.url }}" target="_blank" class="text-decoration-none text-primary text-break">{{ item.url }}</a></td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            {% endif %}
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans antialiased">
+
+  <!-- Header -->
+  <header class="border-b border-slate-800 bg-slate-900/50 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center space-x-3">
+        <div class="bg-indigo-600 text-white p-2 rounded-lg text-lg">
+          <i class="fa-solid fa-spider"></i>
         </div>
+        <span class="text-xl font-bold text-white tracking-wide">ScrapeX<span class="text-indigo-500">-Pro</span></span>
+      </div>
+      <span class="text-xs font-semibold bg-indigo-500/10 text-indigo-400 px-3 py-1 rounded-full border border-indigo-500/20">
+        <i class="fa-solid fa-bolt mr-1"></i> Django Engine Active
+      </span>
     </div>
+  </header>
+
+  <!-- Content Container -->
+  <main class="max-w-4xl mx-auto px-4 py-12">
+    
+    <div class="text-center mb-10">
+      <h1 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-3">
+        Automated Web Data & Link Extraction
+      </h1>
+      <p class="text-slate-400 text-base md:text-lg">
+        Extract structured titles, text, and hyperlinks from any website in seconds.
+      </p>
+    </div>
+
+    <!-- Scraper Box -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8 shadow-2xl">
+      <form method="POST" action="" class="space-y-4">
+        {% csrf_token %}
+        <div>
+          <label class="block text-sm font-medium text-slate-300 mb-2">Target Website URL</label>
+          <div class="relative">
+            <div class="absolute inset-y-0 left-0 pl-4 flex items-center text-slate-500">
+              <i class="fa-solid fa-globe"></i>
+            </div>
+            <input type="url" name="url" placeholder="https://example.com" required
+              class="w-full pl-11 pr-4 py-3.5 bg-slate-950 border border-slate-800 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          </div>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-3 pt-2">
+          <button type="submit" 
+            class="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3.5 px-6 rounded-xl shadow-lg transition duration-200 flex items-center justify-center space-x-2">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span>Scrape Data</span>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Results Table -->
+    {% if results %}
+    <div class="mt-10 bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl">
+      <div class="flex justify-between items-center mb-6">
+        <h3 class="text-lg font-bold text-white flex items-center">
+          <i class="fa-solid fa-table-list text-indigo-400 mr-2"></i> Extracted Results
+        </h3>
+        <a href="?download=csv" class="bg-emerald-600/10 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-600/20 text-xs font-semibold px-4 py-2 rounded-lg transition flex items-center space-x-2">
+          <i class="fa-solid fa-file-excel"></i>
+          <span>Download Excel/CSV</span>
+        </a>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm text-slate-300">
+          <thead class="bg-slate-950 text-slate-400 uppercase text-xs">
+            <tr>
+              <th class="py-3 px-4 rounded-l-lg">Title / Extracted Text</th>
+              <th class="py-3 px-4 rounded-r-lg">Source Link</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800">
+            {% for item in results %}
+            <tr>
+              <td class="py-4 px-4 font-medium text-white">{{ item.title }}</td>
+              <td class="py-4 px-4">
+                <a href="{{ item.link }}" target="_blank" class="text-indigo-400 hover:underline flex items-center">
+                  <span>{{ item.link }}</span>
+                  <i class="fa-solid fa-arrow-up-right-from-square text-xs ml-1.5"></i>
+                </a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {% endif %}
+
+  </main>
+
+  <footer class="text-center py-6 text-slate-600 text-xs border-t border-slate-900">
+    Built with Python, Django & BeautifulSoup • Hosted on Render
+  </footer>
+
 </body>
 </html>
