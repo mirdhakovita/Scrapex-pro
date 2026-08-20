@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ScrapeX-Pro | Freelance Web Scraper</title>
+    <link rel="stylesheet" href="https://jsdelivr.net">
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 text-center mb-4">
+                <h1 class="display-5 fw-bold text-primary">📊 ScrapeX-Pro Engine</h1>
+                <p class="text-muted">किसी भी वेबसाइट का लिंक डालें और उसका डेटा 2 सेकंड में बाहर निकालें</p>
+            </div>
+            <div class="col-md-8 card shadow p-4 mb-4">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">वेबसाइट का लिंक (URL) यहाँ पेस्ट करें:</label>
+                        <input type="url" name="url" class="form-control" placeholder="https://example.com" value="{{ url }}" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 fw-bold">🚀 डेटा स्क्रैप करें</button>
+                </form>
+            </div>
+            {% if data %}
+            <div class="col-md-8 card shadow p-4">
+                <h3 class="h5 mb-3 text-success fw-bold">निकाल गया डेटा (Scraped Results):</h3>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>नाम / टेक्स्ट (Text)</th>
+                                <th>लिंक (URL Path)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in data %}
+                            <tr>
+                                <td>{{ item.text }}</td>
+                                <td><a href="{{ item.url }}" target="_blank">{{ item.url }}</a></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
