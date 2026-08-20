@@ -2,45 +2,57 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ScrapeX-Pro | Freelance Web Scraper</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScrapeX-Pro | Professional Web Scraper Tool</title>
     <link rel="stylesheet" href="https://jsdelivr.net">
+    <style>
+        body { background-color: #f8f9fa; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .card { border: none; border-radius: 12px; }
+        .btn-primary { background-color: #0d6efd; border: none; border-radius: 8px; }
+        .btn-success { background-color: #198754; border: none; border-radius: 8px; }
+    </style>
 </head>
-<body class="bg-light">
+<body>
     <div class="container py-5">
         <div class="row justify-content-center">
-            <div class="col-md-8 text-center mb-4">
-                <h1 class="display-5 fw-bold text-primary">📊 ScrapeX-Pro Engine</h1>
-                <p class="text-muted">किसी भी वेबसाइट का लिंक डालें और उसका डेटा 2 सेकंड में बाहर निकालें</p>
+            <!-- Header Section -->
+            <div class="col-md-9 text-center mb-5">
+                <h1 class="display-4 fw-bold text-primary">📊 ScrapeX-Pro Engine</h1>
+                <p class="fs-5 text-muted">Extract data and links from any website in seconds</p>
             </div>
-            <div class="col-md-8 card shadow p-4 mb-4">
+            
+            <!-- Input Form Card -->
+            <div class="col-md-9 card shadow-sm p-4 mb-4 bg-white">
                 <form method="POST">
                     {% csrf_token %}
                     <div class="mb-3">
-                        <label class="form-label fw-bold">वेबसाइट का लिंक (URL) यहाँ पेस्ट करें:</label>
-                        <input type="url" name="url" class="form-control" placeholder="https://example.com" value="{{ url }}" required>
+                        <label class="form-label fw-semibold text-dark fs-6">Enter Website URL (Link):</label>
+                        <input type="url" name="url" class="form-control form-control-lg" placeholder="https://example.com" value="{{ url }}" required>
                     </div>
-                    <button type="submit" name="action" value="scrape" class="btn btn-primary w-100 fw-bold mb-2">🚀 डेटा स्क्रैप करें</button>
-                    
-                    <!-- 🟢 नया एक्सेल डाउनलोड करने वाला बटन -->
-                    <button type="submit" name="action" value="download" class="btn btn-success w-100 fw-bold">📥 Excel (CSV) डाउनलोड करें</button>
+                    <div class="d-grid gap-2">
+                        <button type="submit" name="action" value="scrape" class="btn btn-primary btn-lg fw-bold">🚀 Scrape Data</button>
+                        <button type="submit" name="action" value="download" class="btn btn-success btn-lg fw-bold">📥 Download Excel (CSV)</button>
+                    </div>
                 </form>
             </div>
+            
+            <!-- Results Table Card -->
             {% if data %}
-            <div class="col-md-8 card shadow p-4">
-                <h3 class="h5 mb-3 text-success fw-bold">निकाल गया डेटा (Scraped Results):</h3>
+            <div class="col-md-9 card shadow-sm p-4 bg-white">
+                <h3 class="h5 mb-3 text-success fw-bold">📋 Scraped Results:</h3>
                 <div class="table-responsive">
-                    <table class="table table-bordered table-striped">
+                    <table class="table table-hover table-bordered align-middle">
                         <thead class="table-dark">
                             <tr>
-                                <th>नाम / टेक्स्ट (Text)</th>
-                                <th>लिंक (URL Path)</th>
+                                <th style="width: 40%;">Title / Text</th>
+                                <th style="width: 60%;">Target URL Path</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for item in data %}
                             <tr>
-                                <td>{{ item.text }}</td>
-                                <td><a href="{{ item.url }}" target="_blank">{{ item.url }}</a></td>
+                                <td class="fw-medium text-secondary">{{ item.text }}</td>
+                                <td><a href="{{ item.url }}" target="_blank" class="text-decoration-none text-primary text-break">{{ item.url }}</a></td>
                             </tr>
                             {% endfor %}
                         </tbody>
