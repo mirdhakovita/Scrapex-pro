@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ScrapeX-Pro | Freelance Web Scraping Portfolio</title>
+    <link rel="stylesheet" href="https://jsdelivr.net">
+    <style>
+        body { background-color: #f4f6f9; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
+        .wrapper { flex: 1; }
+        .card { border: none; border-radius: 14px; }
+        .btn-primary { background-color: #0d6efd; border: none; border-radius: 8px; padding: 12px; }
+        .btn-success { background-color: #198754; border: none; border-radius: 8px; padding: 12px; }
+        .service-badge { background-color: #e9ecef; color: #495057; font-weight: 600; padding: 8px 14px; border-radius: 20px; display: inline-block; margin: 5px; font-size: 0.9rem; }
+        footer { background-color: #1e2229; color: #ffffff; padding: 25px 0; margin-top: auto; border-top: 4px solid #0d6efd; }
+    </style>
+</head>
+<body>
+    <div class="wrapper py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                
+                <!-- Main Header -->
+                <div class="col-md-9 text-center mb-5">
+                    <h1 class="display-4 fw-bold text-primary">📊 ScrapeX-Pro Engine</h1>
+                    <p class="fs-5 text-muted">A Live Python-Django Web Scraper Built by Milan Singh</p>
+                </div>
+                
+                <!-- LIVE DEMO TOOL CARD -->
+                <div class="col-md-9 card shadow-sm p-4 mb-4 bg-white">
+                    <h3 class="h5 fw-bold text-dark mb-3">🚀 Try Live Scraper Demo:</h3>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label class="form-label text-secondary fw-medium">Paste Target Website URL (Link):</label>
+                            <input type="url" name="url" class="form-control form-control-lg" placeholder="https://example.com" value="{{ url }}" required>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" name="action" value="scrape" class="btn btn-primary btn-lg fw-bold">Extract Live Data</button>
+                            <button type="submit" name="action" value="download" class="btn btn-success btn-lg fw-bold">📥 Download Excel (CSV)</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Live Scraped Results Table -->
+                {% if data %}
+                <div class="col-md-9 card shadow-sm p-4 mb-4 bg-white">
+                    <h3 class="h5 mb-3 text-success fw-bold">📋 Scraped Results:</h3>
+                    <div class="table-responsive">
+                        <table class="table table-hover table-bordered align-middle">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th style="width: 40%;">Title / Text</th>
+                                    <th style="width: 60%;">Target URL Path</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in data %}
+                                <tr>
+                                    <td class="fw-medium text-secondary">{{ item.text }}</td>
+                                    <td><a href="{{ item.url }}" target="_blank" class="text-decoration-none text-primary text-break">{{ item.url }}</a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                {% endif %}
+
+                <!-- 🌟 NEW CLIENT-READY SERVICES SECTION 🌟 -->
+                <div class="col-md-9 card shadow-sm p-4 bg-white mb-4">
+                    <h3 class="h5 fw-bold text-dark mb-3">💼 My Freelance Web Scraping Services:</h3>
+                    <p class="text-muted">I provide professional data extraction services using Python and Django. Here is what I can do for your business:</p>
+                    <div class="mb-2">
+                        <span class="service-badge">✔ E-commerce Scraping (Products & Prices)</span>
+                        <span class="service-badge">✔ Lead Generation (Business Directories)</span>
+                        <span class="service-badge">✔ Real Estate Data Extraction</span>
+                        <span class="service-badge">✔ News & Blog Automation</span>
+                        <span class="service-badge">✔ Data Cleaning & Formatting</span>
+                        <span class="service-badge">✔ Excel / CSV Custom Reports</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Professional International Footer -->
+    <footer>
+        <div class="container text-center">
+            <h4 class="h5 fw-bold mb-2">Hire Me On Fiverr / Upwork</h4>
+            <p class="mb-2 text-white-50">Developer Portfolio: <span class="text-info fw-bold">Milan Singh</span></p>
+            <p class="mb-0 text-muted">For project inquiries, email me directly at: 
+                <a href="mailto:Milansingh974@gmail.com" class="text-warning text-decoration-none fw-bold">Milansingh974@gmail.com</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>
